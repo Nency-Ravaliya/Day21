@@ -1,0 +1,4 @@
+---
+# vars file for frontend
+backend_host: backend1
+backend_port: 3001

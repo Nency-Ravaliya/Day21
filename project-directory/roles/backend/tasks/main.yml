@@ -1,0 +1,32 @@
+---
+- name: Install Node.js and npm
+  apt:
+    name:
+      - nodejs
+      - npm
+    state: present
+
+- name: Create application directory
+  file:
+    path: /opt/my-backend
+    state: directory
+
+- name: Deploy Node.js application
+  template:
+    src: app.js.j2
+    dest: /opt/my-backend/app.js
+
+- name: Deploy package.json
+  template:
+    src: package.json.j2
+    dest: /opt/my-backend/package.json
+
+- name: Install npm dependencies
+  command: npm install
+  args:
+    chdir: /opt/my-backend
+
+- name: Start Node.js application
+  command: npm start
+  args:
+    chdir: /opt/my-backend

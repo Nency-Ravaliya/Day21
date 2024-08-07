@@ -1,0 +1,26 @@
+- name: Test frontend
+  hosts: frontend
+  tasks:
+    - name: Verify frontend is serving content
+      uri:
+        url: http://localhost
+        method: GET
+        status_code: 200
+
+- name: Test backend
+  hosts: backend
+  tasks:
+    - name: Verify backend is running
+      command: curl -I http://localhost:3000
+      register: result
+      failed_when: "'200' not in result.stdout"
+
+- name: Test database
+  hosts: database
+  tasks:
+    - name: Check if MySQL is accessible
+      mysql_db:
+        name: my_database
+        state: present
+      register: db_check
+      failed_when: db_check is failed
