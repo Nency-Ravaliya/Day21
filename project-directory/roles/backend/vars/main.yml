@@ -1,3 +1,7 @@
 ---
 # vars file for backend
-backend_port: 3001
+db_host: 13.89.61.0
+#db_user: db_user
+#db_password: 
+#db_name: "{{ db_name }}"
+

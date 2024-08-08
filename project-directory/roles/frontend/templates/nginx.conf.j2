@@ -1,9 +1,14 @@
 server {
     listen 80;
-    server_name localhost;
+    server_name 13.89.61.0;
 
     location / {
-        proxy_pass http://{{ backend_host }}:{{ backend_port }};
+        root /var/www/html;
+        index index.html;
+    }
+
+    location /api/ {
+        proxy_pass http://{{ backend_host }}:{{ backend_port }}/;  # Use variables for backend host and port
         proxy_set_header Host $host;
         proxy_set_header X-Real-IP $remote_addr;
         proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;

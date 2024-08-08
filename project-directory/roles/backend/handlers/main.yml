@@ -1,2 +1,13 @@
 ---
 # handlers file for backend
+- name: Reload systemd
+  become: yes
+  systemd:
+    daemon_reload: yes
+
+- name: Restart Node.js
+  become: yes
+  systemd:
+    name: my-backend
+    state: restarted
+    enabled: yes

@@ -1,32 +1,59 @@
 ---
-- name: Install Node.js and npm
+- name: Update apt cache
+  become: yes
   apt:
+    update_cache: yes
+
+- name: Create My Backend User
+  become: yes
+  user:
+    name: my-backend
+    system: yes
+    shell: /bin/false
+
+- name: Install Node.js and npm
+  become: yes
+  ansible.builtin.apt:
     name:
       - nodejs
       - npm
     state: present
+  retries: 3
+  delay: 10
+  register: install_result
+  until: install_result is succeeded
 
-- name: Create application directory
-  file:
+- name: Create Application Directory
+  ansible.builtin.file:
     path: /opt/my-backend
     state: directory
 
-- name: Deploy Node.js application
-  template:
+- name: Deploy Node.js Application
+  ansible.builtin.template:
     src: app.js.j2
     dest: /opt/my-backend/app.js
 
 - name: Deploy package.json
-  template:
+  ansible.builtin.template:
     src: package.json.j2
     dest: /opt/my-backend/package.json
 
-- name: Install npm dependencies
-  command: npm install
-  args:
+- name: Install npm Dependencies
+  ansible.builtin.command:
+    cmd: npm install
     chdir: /opt/my-backend
 
-- name: Start Node.js application
-  command: npm start
-  args:
-    chdir: /opt/my-backend
+- name: Deploy Node.js service file
+  become: yes
+  template:
+    src: my-backend.service.j2
+    dest: /etc/systemd/system/my-backend.service
+  notify:
+    - Reload systemd
+    - Restart Node.js
+
+- name: Start Node.js Application
+  ansible.builtin.systemd:
+    name: my-backend
+    state: started
+    enabled: yes

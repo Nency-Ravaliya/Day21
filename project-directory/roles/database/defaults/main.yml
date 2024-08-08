@@ -1,2 +1,5 @@
 ---
 # defaults file for database
+db_name: "database"
+db_user: "user"
+db_pass: "passwd"

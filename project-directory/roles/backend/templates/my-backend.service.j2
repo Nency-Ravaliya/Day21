@@ -1,0 +1,16 @@
+[Unit]
+Description=My Backend Node.js Application
+After=network.target
+
+[Service]
+ExecStart=/usr/bin/node /opt/my-backend/app.js
+WorkingDirectory=/opt/my-backend
+Restart=always
+User=my-backend
+Group=my-backend
+Environment=PORT=3000
+Environment=NODE_ENV=production
+
+[Install]
+WantedBy=multi-user.target
+

@@ -1,33 +1,35 @@
 ---
+- name: Update apt cache
+  become: yes
+  ansible.builtin.apt:
+    update_cache: yes
+  retries: 3
+  delay: 10
+
 - name: Install Nginx
-  apt:
+  become: yes
+  ansible.builtin.apt:
     name: nginx
     state: present
+  retries: 3
+  delay: 10
 
-- name: Remove default Nginx configuration
-  file:
-    path: /etc/nginx/sites-enabled/default
-    state: absent
-
-- name: Copy Nginx configuration file
-  template:
+- name: Deploy Nginx Configuration
+  become: yes
+  ansible.builtin.template:
     src: nginx.conf.j2
-    dest: /etc/nginx/sites-available/default
+    dest: /etc/nginx/nginx.conf
 
-- name: Create symbolic link to sites-enabled
-  file:
-    src: /etc/nginx/sites-available/default
-    dest: /etc/nginx/sites-enabled/default
-    state: link
+- name: Deploy Static Content
+  become: yes
+  ansible.builtin.copy:
+    src: static/
+    dest: /var/www/html/
+    mode: '0755'
 
-- name: Ensure Nginx is running
-  service:
+- name: Start and Enable Nginx
+  become: yes
+  ansible.builtin.systemd:
     name: nginx
     state: started
-    enabled: yes
-
-- name: Ensure Nginx reload
-  service:
-    name: nginx
-    state: reloaded  # Reload Nginx to apply changes
     enabled: yes

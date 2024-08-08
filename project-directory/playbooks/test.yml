@@ -1,26 +1,49 @@
-- name: Test frontend
-  hosts: frontend
-  tasks:
-    - name: Verify frontend is serving content
-      uri:
-        url: http://localhost
-        method: GET
-        status_code: 200
-
-- name: Test backend
+---
+- name: Test Backend Application
   hosts: backend
   tasks:
-    - name: Verify backend is running
-      command: curl -I http://localhost:3000
+    - name: Check if backend application is running
+      uri:
+        url: http://localhost:3000/
+        method: GET
+        status_code: 200
       register: result
-      failed_when: "'200' not in result.stdout"
 
-- name: Test database
-  hosts: database
+    - name: Print test result for backend
+      debug:
+        msg: "Backend application is accessible"
+      when: result.status == 200
+
+- name: Test Frontend Access
+  hosts: frontend
   tasks:
-    - name: Check if MySQL is accessible
-      mysql_db:
-        name: my_database
-        state: present
-      register: db_check
-      failed_when: db_check is failed
+    - name: Check if frontend is accessible
+      uri:
+        url: http://localhost/
+        method: GET
+        status_code: 200
+      register: result
+
+    - name: Print test result for frontend
+      debug:
+        msg: "Frontend is accessible"
+      when: result.status == 200
+
+- name: Test Database Connectivity
+  hosts: database  # Replace with the actual host group or IP address for your database server
+  vars:
+    db_user: "user"
+    db_pass: "passwd"
+  tasks:
+    - name: Check if database is accessible
+      mysql_query:
+        login_user: "{{ db_user }}"
+        login_password: "{{ db_pass }}"
+        query: "SHOW DATABASES;"
+      register: result
+      failed_when: result.failed
+
+    - name: Print test result for database
+      debug:
+        msg: "Database is accessible"
+      when: result is defined

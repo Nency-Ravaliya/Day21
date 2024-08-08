@@ -1,8 +1,8 @@
 ---
 - name: Update apt cache
-  apt:
-    update_cache: yes
   become: yes
+  ansible.builtin.apt:
+    update_cache: yes
 
 - name: Install MySQL and dependencies
   become: yes
@@ -15,6 +15,10 @@
     - mysql-client
     - python3-mysqldb
     - libmysqlclient-dev
+  retries: 3
+  delay: 10
+  register: package_result
+  until: package_result is succeeded
 
 - name: Start and enable MySQL service
   become: yes
@@ -23,7 +27,7 @@
     state: started
     enabled: yes
 
-- name: Create MySQL user (medium_post)
+- name: Create MySQL user
   become: yes
   mysql_user:
     name: "{{ db_user }}"
@@ -32,11 +36,30 @@
     host: '%'
     state: present
 
-- name: Create medium_db
+- name: Check if database exists
+  mysql_query:
+    login_user: root
+    login_password: "{{ db_pass }}"
+    query: "SHOW DATABASES LIKE '{{ db_name }}';"
+  register: db_check
+  failed_when: db_check.failed
+
+- name: Drop database if it exists
+  mysql_query:
+    login_user: root
+    login_password: "{{ db_pass }}"
+    query: "DROP DATABASE IF EXISTS `{{ db_name }}`;"
+  when: db_check.query_result | length > 0
+  register: drop_db_result
+  failed_when: drop_db_result.failed
+
+- name: Create new database
   become: yes
   mysql_db:
     name: "{{ db_name }}"
     state: present
+  register: create_db_result
+  failed_when: create_db_result.failed
 
 - name: Enable remote login to MySQL
   become: yes

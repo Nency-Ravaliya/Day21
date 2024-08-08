@@ -41,7 +41,7 @@ The inventory file is used to define groups and hosts for frontend, backend, and
 - **Static Inventory**: `inventory/hosts.ini`
 - **Dynamic Inventory**: `inventory/ec2_inventory.py`
 
-**[Update the dynamic inventory script (`ec2_inventory.py`) with appropriate AWS region and settings.]**
+**[Update the inventory files with appropriate host information and configurations.]**
 
 ## Playbooks
 
@@ -69,16 +69,11 @@ This playbook verifies the deployment and functionality of each tier.
     cd <repository-directory>
     ```
 
-2. **Update Dynamic Inventory**:
-    - Configure `inventory/ec2_inventory.py` with your AWS settings and region.
+2. **Update Inventory**:
+    - Configure `inventory/hosts.ini` or `inventory/ec2_inventory.py` with your hosts and parameters.
 
 3. **Configure `ansible.cfg`**:
-    - Ensure the inventory path is set to use the dynamic inventory script:
-      ```ini
-      [defaults]
-      inventory = inventory/ec2_inventory.py
-      roles_path = ./roles
-      ```
+    - Ensure the inventory path is set correctly in `ansible.cfg`.
 
 4. **Run Deployment**:
     ```bash
@@ -89,6 +84,19 @@ This playbook verifies the deployment and functionality of each tier.
     ```bash
     ansible-playbook -i inventory/hosts.ini playbooks/test.yml
     ```
+
+## Output:
+- ![image](https://github.com/user-attachments/assets/114c7626-9bfd-44a9-a8f2-910ab9cbe16e)
+- ![image](https://github.com/user-attachments/assets/c3344d6c-e8d1-4d3b-9e9d-e453461c9325)
+- ![image](https://github.com/user-attachments/assets/6f2f72d2-ca82-4a85-9b70-d12b4d073ae3)
+- ![image](https://github.com/user-attachments/assets/40887b1d-cba6-4a03-899b-99668b6b7e76)
+- ![image](https://github.com/user-attachments/assets/6f59ce51-df8d-4a7b-bfca-c46d20bb9a79)
+- ![image](https://github.com/user-attachments/assets/54c468e1-86d3-4d4f-bfc5-8f95de69a90f)
+
+
+
+
+
 
 ## License
 
