@@ -1,0 +1,71 @@
+{
+  "all": {
+    "hosts": [
+      "ec2-52-53-212-188.us-west-1.compute.amazonaws.com",
+      "ec2-54-193-139-181.us-west-1.compute.amazonaws.com",
+      "ec2-54-176-172-164.us-west-1.compute.amazonaws.com",
+      "ec2-54-193-193-217.us-west-1.compute.amazonaws.com",
+      "ec2-18-144-176-8.us-west-1.compute.amazonaws.com",
+      "ec2-54-67-58-189.us-west-1.compute.amazonaws.com",
+      "ec2-18-144-89-241.us-west-1.compute.amazonaws.com",
+      "ec2-50-18-33-247.us-west-1.compute.amazonaws.com",
+      "ec2-13-52-211-131.us-west-1.compute.amazonaws.com",
+      "ec2-54-183-206-226.us-west-1.compute.amazonaws.com"
+    ],
+    "vars": {}
+  },
+  "_meta": {
+    "hostvars": {
+      "ec2-52-53-212-188.us-west-1.compute.amazonaws.com": {
+        "ansible_host": "52.53.212.188",
+        "ansible_ssh_private_key_file": "/home/einfochips/.ssh/ansible-new.pem",
+        "ansible_user": "ubuntu"
+      },
+      "ec2-54-193-139-181.us-west-1.compute.amazonaws.com": {
+        "ansible_host": "54.193.139.181",
+        "ansible_ssh_private_key_file": "/home/einfochips/.ssh/ansible-new.pem",
+        "ansible_user": "ubuntu"
+      },
+      "ec2-54-176-172-164.us-west-1.compute.amazonaws.com": {
+        "ansible_host": "54.176.172.164",
+        "ansible_ssh_private_key_file": "/home/einfochips/.ssh/ansible-new.pem",
+        "ansible_user": "ubuntu"
+      },
+      "ec2-54-193-193-217.us-west-1.compute.amazonaws.com": {
+        "ansible_host": "54.193.193.217",
+        "ansible_ssh_private_key_file": "/home/einfochips/.ssh/ansible-new.pem",
+        "ansible_user": "ubuntu"
+      },
+      "ec2-18-144-176-8.us-west-1.compute.amazonaws.com": {
+        "ansible_host": "18.144.176.8",
+        "ansible_ssh_private_key_file": "/home/einfochips/.ssh/ansible-new.pem",
+        "ansible_user": "ubuntu"
+      },
+      "ec2-54-67-58-189.us-west-1.compute.amazonaws.com": {
+        "ansible_host": "54.67.58.189",
+        "ansible_ssh_private_key_file": "/home/einfochips/.ssh/ansible-new.pem",
+        "ansible_user": "ubuntu"
+      },
+      "ec2-18-144-89-241.us-west-1.compute.amazonaws.com": {
+        "ansible_host": "18.144.89.241",
+        "ansible_ssh_private_key_file": "/home/einfochips/.ssh/ansible-new.pem",
+        "ansible_user": "ubuntu"
+      },
+      "ec2-50-18-33-247.us-west-1.compute.amazonaws.com": {
+        "ansible_host": "50.18.33.247",
+        "ansible_ssh_private_key_file": "/home/einfochips/.ssh/ansible-new.pem",
+        "ansible_user": "ubuntu"
+      },
+      "ec2-13-52-211-131.us-west-1.compute.amazonaws.com": {
+        "ansible_host": "13.52.211.131",
+        "ansible_ssh_private_key_file": "/home/einfochips/.ssh/ansible-new.pem",
+        "ansible_user": "ubuntu"
+      },
+      "ec2-54-183-206-226.us-west-1.compute.amazonaws.com": {
+        "ansible_host": "54.183.206.226",
+        "ansible_ssh_private_key_file": "/home/einfochips/.ssh/ansible-new.pem",
+        "ansible_user": "ubuntu"
+      }
+    }
+  }
+}
